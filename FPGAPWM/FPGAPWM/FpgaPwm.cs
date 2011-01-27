@@ -50,14 +50,14 @@ namespace VersaShield.Servo
 			int time = (int)(degrees * 1000 / 180 + 1000);
 
 			// Generate MSB/LSB
-			byte[] bufferMsb = new byte[2] { (byte)port, (byte)(time & 0xff) };
-			byte[] bufferLsb = new byte[2] { (byte)(port + 1), (byte)((time >> 8) & 0xff) };
+			byte[] bufferLsb = new byte[2] { (byte)port, (byte)(time & 0xff) };
+			byte[] bufferMsb = new byte[2] { (byte)(port + 1), (byte)((time >> 8) & 0xff) };
 
 			// Create the transaction
 			I2CDevice.I2CTransaction[] transaction = new I2CDevice.I2CTransaction[]
 			{
-				I2CDevice.CreateWriteTransaction(bufferLsb),
-				I2CDevice.CreateWriteTransaction(bufferMsb)
+				I2CDevice.CreateWriteTransaction(bufferMsb),
+				I2CDevice.CreateWriteTransaction(bufferLsb)
 			};
 
 			// Execute!
