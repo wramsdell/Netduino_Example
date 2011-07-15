@@ -26,10 +26,11 @@ namespace NetduinoApplication1
             var RxBuffer = new byte[6];
             PWMStop(spi);
             int i = 0;
-            for (i = 0; i < 64; i++)
+            for (i = 0; i < 32; i++)
             {
                 SetPWM(spi, (byte)i, i, i + 1, 80);
             }
+//            SetPWM(spi, 0, 1, 9, 13);
             SetTerminate(spi, 0);
             PWMStart(spi);
             GreenLEDOn(spi);
@@ -66,9 +67,9 @@ namespace NetduinoApplication1
 
         public static void SetPWM(SPI spi, byte channel, int risetime, int falltime, int period)
         {
-            WriteReg(spi, (byte)(channel << 2), risetime);
-            WriteReg(spi, (byte)((channel << 2) + 1), falltime);
-            WriteReg(spi, (byte)((channel << 2) + 2), period);
+            WriteReg(spi, (byte)(channel<<2), period);
+            WriteReg(spi, (byte)((channel<<2)+1), risetime);
+            WriteReg(spi, (byte)((channel<<2)+2), falltime);
         }
 
         public static void SetTerminate(SPI spi, int Data)
